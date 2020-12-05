@@ -15,10 +15,8 @@ class Kibana(Module):
             help="port to listen on")
         parser.add_argument("-e", "--elastic-url", type=str, action="append",
             help="elasticsearch url to connect to", required=True)
-        parser.add_argument("-d", "--directory", type=str,
-            help="use shared directory for data storage")
 
-    def handle(self, input, interface="0.0.0.0", port=5601, elastic_url=None, directory=None):
+    def handle(self, input, interface="0.0.0.0", port=5601, elastic_url=None):
         assert elastic_url, "Must specify url of elasticsearch instance"
 
         with Mount("/conf") as mount:
@@ -32,21 +30,12 @@ class Kibana(Module):
                 f.write("telemetry.optIn: false\n")
                 f.write("telemetry.enabled: false\n")
 
-            # Mount a shared directory to persist data
-            volumes = mount.volumes
-            if directory:
-                f.write("path.data: /data\n")
-                volumes["/data"] = {
-                    "bind" : directory,
-                    "mode" : "rw",
-                }
-
             # Launch kibana
             with Container.run("kibana:7.9.3",
                 network="host",     # Use host network to enable localhost
                 stdin_open=True,
                 tty=True,
-                volumes=volumes,
+                volumes=mount.volumes,
                 command="/usr/local/bin/kibana-docker -c /conf/kibana.yml") as container:
 
                 container.interact()

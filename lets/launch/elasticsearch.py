@@ -14,25 +14,14 @@ class Elasticsearch(Module):
             help="interface to listen on", default="0.0.0.0")
         parser.add_argument("-p", "--port", type=int,
             help="port to listen on", default=9200)
-        parser.add_argument("-d", "--directory", type=str,
-            help="use shared directory for data storage")
 
-    def handle(self, input, interface="0.0.0.0", port=9200, directory=None):
-
-        # Mount a shared directory to persist data
-        volumes = {}
-        if directory:
-            volumes["/data"] = {
-                "bind" : directory,
-                "mode" : "rw",
-            }
+    def handle(self, input, interface="0.0.0.0", port=9200):
 
         # Launch elasticsearch
         with Container.run("elasticsearch:7.9.3",
             stdin_open=True,
             tty=True,
             ports={"%s/tcp" % port : (interface, port)},
-            volumes=volumes,
             environment={
                 "discovery.type" : "single-node",
                 "cluster.name" : self.__name__,

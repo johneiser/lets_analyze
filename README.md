@@ -31,8 +31,7 @@ $ pip3 install docker-lets
 Install **lets_analyze**
 
 ```
-$ git clone https://github.com/johneiser/lets_analyze
-$ pip3 install ./lets_analyze
+$ pip3 install git+https://github.com/johneiser/lets_analyze.git
 ```
 
 Activate **lets** *tab-completion* for bash.
