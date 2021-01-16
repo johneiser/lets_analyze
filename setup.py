@@ -27,7 +27,6 @@ setup(
     python_requires = ">=3.5.0",
     install_requires = [
         "docker-lets>=3.0.7",
-        "scapy",
     ],
     classifiers = [
         "Development Status :: 3 - Alpha",

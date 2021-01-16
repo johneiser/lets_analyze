@@ -2,6 +2,18 @@
 Changelog
 =========
 
+1.0.3
+^^^^^
+
+January 16, 2021
+
+- Moved analyze/pcap/termshark back to lets_network repository
+- Upgraded elasticsearch and kibana to 7.10.0
+- Added tests to elasticsearch and kibana
+- Added __images__/local/speedtest
+- Added launch/speedtest
+
+
 1.0.2
 ^^^^^
 
