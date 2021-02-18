@@ -25,20 +25,19 @@ $ sudo usermod -aG docker $USER
 Install **lets**
 
 ```
-$ pip3 install docker-lets
+$ sudo pip3 install docker-lets
 ```
 
 Install **lets_analyze**
 
 ```
-$ pip3 install git+https://github.com/johneiser/lets_analyze.git
+$ sudo pip3 install git+https://github.com/johneiser/lets_analyze.git
 ```
 
 Activate **lets** *tab-completion* for bash.
 
 ```
-$ lets support/autocomplete bash >> ~/.profile
-$ source ~/.profile
+$ source <(lets support/autocomplete bash)
 $ lets sample/my[TAB][TAB]
 sample/mydockermodule   sample/mymodule
 ```
